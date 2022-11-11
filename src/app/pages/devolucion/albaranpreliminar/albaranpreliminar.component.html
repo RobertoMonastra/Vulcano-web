@@ -1,0 +1,153 @@
+<div class="container">
+
+    <div class="tituloContainer">
+      <p class="tituloEnv">Vista preliminar del albaran de devolución</p>
+    </div>
+
+    <mat-form-field class="example-form-field ejemplo" appearance="fill">
+        <mat-label>Cantidad de Bultos</mat-label>
+        <input matInput min="1" [max]="maxBultos" type="number" ng-model="nBultoss" [(ngModel)]="nBultos">
+
+          <button *ngIf="nBultos < maxBultos" matSuffix mat-icon-button aria-label="Clear" (click)="nBultos=nBultos+1">
+            <mat-icon>arrow_drop_up</mat-icon>          
+          </button>
+          <button *ngIf="nBultos > 0" matSuffix mat-icon-button aria-label="Clear" (click)="nBultos=nBultos-1">          
+              <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+
+        <mat-error>
+          Ingrese un valor entre <strong>1 y {{maxBultos}}</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <div class="card-container">
+        <mat-card>
+            <mat-card-title>Remitente:</mat-card-title> <hr>
+            <mat-card-content *ngFor="let remitente of remitenteDatos">
+                <p><b>Empresa:</b> {{remitente.empresa}}. {{remitente.nombreZona}}</p>
+                <p><b>Direccion:</b> {{remitente.direccion}}</p>
+                <p><b>Poblacion:</b> {{remitente.codigoUbigeo}} {{remitente.poblacion}}</p>
+                <p><b>Provincia:</b> {{remitente.provincia}}</p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-title>Destino:</mat-card-title> <hr>
+            <mat-card-content *ngFor="let remitente of destinatarioDatos">
+              <p><b>Empresa:</b> {{remitente.empresa}}. {{remitente.nombreZona}}</p>
+              <p><b>Direccion:</b> {{remitente.direccion}}</p>
+              <p><b>Telefono:</b> {{remitente.telefono}}</p>
+              <p><b>Poblacion:</b> {{remitente.codigoUbigeo}} {{remitente.poblacion}}</p>
+              <p><b>Provincia:</b> {{remitente.provincia}}</p>
+          </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Tabla de componentes -->
+  
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="CODIGO">
+          <th mat-header-cell *matHeaderCellDef>
+            Codigo
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.componente }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="DESCRIPCIÓN">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.descripcion }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="NSERIE">
+          <th mat-header-cell *matHeaderCellDef>N° Serie</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.numeroSerie }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="AVERIADO">
+          <th mat-header-cell *matHeaderCellDef>Averiado</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.averiado ? 'Sí' : 'No'}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ORIGEN">
+          <th mat-header-cell *matHeaderCellDef>Origen</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ 'STOCK' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NCAJA">
+            <th mat-header-cell *matHeaderCellDef>N° Caja</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.numeroCaja }}
+            </td>
+          </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+  
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Seleccione una pagina"
+      >
+      </mat-paginator>
+    </div>
+  
+    <!-- ******************** -->
+  
+  
+    <!-- Botones de aceptar y salir -->
+  
+    <div class="buttonLoginContainer">
+      <button 
+        class="buttonLogin" 
+        mat-raised-button 
+        type="submit"
+        disabled="{{nBultos < 1 || nBultos > maxBultos}}"
+        (click)="generarAlb()"
+        >
+        Generar Albaran</button>
+      <button
+        class="buttonLogin"
+        mat-raised-button
+        routerLink="devoluciones"
+      >
+        Cancelar</button>
+    </div>
+  </div>
+<div class="success" *ngIf="exito">
+  <div class="wrapper">
+     <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> 
+    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+    </svg>
+  </div>
+</div>

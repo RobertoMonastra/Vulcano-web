@@ -1,0 +1,38 @@
+    <form class="form" 
+      autocomplete="off"
+      [formGroup]="loginForm"
+      (ngSubmit)="sendEmail()">
+            <mat-form-field  class="input" appearance="fill">
+              <mat-label >Ingrese su nombre de usuario</mat-label>
+              <input matInput placeholder=""
+              type="text"  
+              formControlName="username"
+              required>
+              <mat-error *ngIf="campoNoValido('')">El nombre de usuario no existe</mat-error>
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field  class="input" appearance="fill">
+              <mat-label >Ingrese el email asociado a su cuenta</mat-label>
+              <input matInput placeholder=""
+              type="email"  
+              formControlName="email"
+              required>
+              <mat-error *ngIf="campoNoValido('email')">El email no es valido</mat-error>
+              <mat-icon id="icono" matSuffix>{{statusIcon}}</mat-icon>
+            </mat-form-field>
+
+            <div class="buttonLoginContainer">
+                <button class="buttonLogin"
+                 mat-raised-button
+                 [disabled]="loginForm.invalid"
+                 type="submit">
+                  Enviar
+                </button>
+                <button class="buttonLogin"
+                 mat-raised-button
+                 routerLink="/login">
+                  Cancelar
+                </button>
+            </div>
+    </form>

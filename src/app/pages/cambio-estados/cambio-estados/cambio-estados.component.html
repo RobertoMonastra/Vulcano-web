@@ -1,0 +1,125 @@
+<div fxLayout="column" class="container">
+    <div>
+        
+        <h1 class="tituloEnv">Modificar Estado Componente</h1>
+        <mat-divider></mat-divider>
+        <br>
+    </div>
+    <div>
+        
+                <h3>Ingrese n° de serie</h3>
+            
+            <div class="row-3">
+                
+                    <mat-form-field>
+                        <input  type="text"
+                        placeholder="Buscar"
+                        aria-label="Number"
+                        matInput
+                        [(ngModel)]="numSerie"
+                        (keyup)="enter($event)"
+                        >           
+                    </mat-form-field>
+                
+            <button>
+                <mat-icon   class="margen"
+                            mat-flat-button
+                            (click)="obtenerComponente()"
+                             
+                            >
+                search
+                </mat-icon>
+            </button>
+            </div>
+        
+        <br>
+        <br>    
+        <table  mat-table [dataSource]="dataSource"
+                multiTemplateDataRows
+                >
+    
+    <ng-container matColumnDef="almacen_id" >
+      <th mat-header-cell *matHeaderCellDef> UBICACIÓN </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+        {{propiedad.almacen_id}}
+      </td>
+    </ng-container>
+    
+    
+    <ng-container matColumnDef="dFcEntrada" >
+      <th mat-header-cell *matHeaderCellDef> FECHA ULT-MOV </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+       {{propiedad.dFcEntrada | date}}
+      </td>
+      
+    </ng-container>
+    
+    
+    <ng-container matColumnDef="componente_id" >
+      <th mat-header-cell *matHeaderCellDef> COMPONENTE </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+        {{propiedad.componente_id}} 
+    </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion" >
+        <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+        <td mat-cell *matCellDef="let propiedad"> 
+          {{propiedad.descripcion}} 
+      </td>
+      </ng-container>
+
+    
+    <ng-container matColumnDef="snmserie">
+      <th mat-header-cell *matHeaderCellDef> NRO SERIE </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+        {{propiedad.snmserie}} 
+    </td>
+    </ng-container>
+    
+    
+    
+    <ng-container matColumnDef="baveriado">
+      <th mat-header-cell *matHeaderCellDef> ESTADO </th>
+      <td mat-cell *matCellDef= "let propiedad">
+      {{propiedad.baveriado ? 'Averiado' : 'Disponible'}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="sMotivoSalida">
+        <th mat-header-cell *matHeaderCellDef> MOVIMIENTO </th>
+        <td mat-cell *matCellDef= "let propiedad">
+        {{propiedad.sMotivoSalida}}
+      </td>
+      </ng-container>
+    
+
+      
+      
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+      
+    </table>
+    
+    <div class="botones" *ngFor="let propiedad of datosComponente">
+      <button class="boton"
+              mat-flat-button
+              type="submit"
+              (click)="aceptar(propiedad.baveriado, propiedad.componente_id)">
+          CAMBIAR A {{propiedad.baveriado ? 'DISPONIBLE' : 'AVERIADO'}}
+      </button>
+    </div>
+
+    </div>
+</div>
+
+<div *ngIf="hide" class="qrtool">
+  <div class="example-button-container">
+    <button (click)="botonQr()" mat-fab class="botonQr" aria-label="Abrir scanner QR">
+      <mat-icon>qr_code</mat-icon>
+    </button>
+  </div>
+</div>
+

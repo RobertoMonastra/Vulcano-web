@@ -1,0 +1,124 @@
+
+
+<div class="container, inputMaterial" fxLayout="column" fxLayoutAlign="space-between" *ngIf="mostrar"> <!--  -->
+  <div>
+    <p class="tituloEnv">Recepción de envíos</p>
+  </div>
+  
+  <!-- Tabla Hardcodeada -->
+  <div class= "hijo">
+    <table  mat-table [dataSource]="dataSource"
+    multiTemplateDataRows>
+    
+      <ng-container matColumnDef="DETALLE" >
+        <th mat-header-cell *matHeaderCellDef>
+          DETALLE
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let propiedad"
+          [ngClass]="{successClass: propiedad.seleccionado}"
+          >
+          <mat-icon class="settingsIcon"
+                    routerLink="codDelivery"
+                    (click)="obtenerCod(propiedad.cod, propiedad.DeliveryDocument, propiedad.nroRemito)">
+          settings
+        </mat-icon>
+        <!-- *ngIf="propiedad.bEnviado" -->
+
+          <!-- <mat-icon class="disabled"
+                    *ngIf="!propiedad.bEnviado"
+                    (click)="snackbarError()"
+                    disabled>
+          settings
+        </mat-icon> -->
+        </td>
+      </ng-container>
+    
+    <ng-container matColumnDef="cod" >
+      <th mat-header-cell *matHeaderCellDef> ALBARÁN </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+        {{propiedad.cod}}
+      </td><!-- routerLink="codDelivery" -->
+    </ng-container>
+    
+    
+    <ng-container matColumnDef="DeliveryDocument" >
+      <th mat-header-cell *matHeaderCellDef> NRO DELIVERY </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+       {{propiedad.DeliveryDocument}}
+      </td>
+      
+    </ng-container>
+    
+    
+    <ng-container matColumnDef="fechGen" >
+      <th mat-header-cell *matHeaderCellDef> FECHA DE GENERACIÓN </th>
+      <td mat-cell *matCellDef="let propiedad"> {{propiedad.fechGen | date}} </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="nroRemito">
+      <th mat-header-cell *matHeaderCellDef> NRO REMITO </th>
+      <td mat-cell *matCellDef="let propiedad"> {{propiedad.nroRemito}} </td>
+    </ng-container>
+    
+    
+    
+    <ng-container matColumnDef="acuseRemito">
+      <th mat-header-cell *matHeaderCellDef> ACUSE REMITO </th>
+      <td mat-cell *matCellDef= "let propiedad">
+        <!-- Boton para enviar acuse del remiso -->
+      <button mat-flat-button
+              type="submit"
+              (click)="aceptar(propiedad.cod, propiedad.DeliveryDocument, propiedad.nroRemito)" 
+              *ngIf="!propiedad.bEnviado">
+              Acuse Remito
+              <!-- <a  href="" routerLink="/inicio/recepcion" class="vinculo"
+              (click)="obtenerCod(propiedad.cod, propiedad.DeliveryDocument, propiedad.nroRemito)">Acuse Remito</a> -->
+      </button>
+        <!-- Boton de remito enviado, una vez enviado el mismo -->
+      <button mat-flat-button
+              type="submit"
+              *ngIf="propiedad.bEnviado"
+              disabled>
+        Enviado
+      </button>
+    </td>
+    </ng-container>
+
+    
+    
+
+
+    
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+    
+  </table>
+  
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+  class="tableStyle">
+  Seleccione
+</mat-paginator>
+
+
+</div>
+
+
+</div>
+
+<div class="center" fxLayout="column" fxLayoutAlign="space-between" *ngIf="!mostrar">
+  <div>
+    <p>No hay recepciones pendientes</p>
+    <img src="/assets/paquete.png" alt="Deliverys Completados" />
+    <button class="buttonLogin" mat-raised-button routerLink="/inicio">
+      Volver atras
+    </button>
+  </div>
+</div>
+
+    

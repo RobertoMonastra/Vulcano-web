@@ -1,0 +1,55 @@
+.headerCard{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 25rem;
+}
+.placeholder{
+    width: 60rem;
+    height: auto;
+    background-color: aqua;
+}
+.placeholder img {
+    width: 100%;
+    height: auto;
+}   
+.containerExcel {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.mat-form-field-infix{
+    width: 100%;
+}
+#inputExcel{
+    margin-bottom: -17.5px;
+    margin-left: 10px;
+    width: 95%;
+}
+.botonesCard{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+.boton {
+    color: white;
+    background-color: #01abcd;
+    border-radius: 5%;
+    font-size: small;
+    padding: 5px;
+    width: 80px;
+    margin: 5px;
+    border:none;
+    cursor: pointer;
+  }
+.boton:hover {
+box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+@media (max-width: 1160px) {
+    .containerExcel {
+        display: block;
+    }
+    .placeholder{
+        width: 100%;
+    }
+}

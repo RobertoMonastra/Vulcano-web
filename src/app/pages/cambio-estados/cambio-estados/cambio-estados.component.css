@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+  }
+
+table {
+    width: 100%;
+  }
+
+th.mat-header-cell,
+td.mat-cell {
+text-align: center;
+font-size: 18px;
+}
+
+.tituloEnv {
+    padding: 2%;
+    width: 13rem;
+    background-color: #01abcd;
+    color: white;
+    font-size: 26px;
+    font-weight: 100;
+  }
+
+
+
+button:hover {
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.botones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton {
+    color: white;
+    background-color: #01abcd;
+    border-radius: 5%;
+    font-size: 18px;
+    margin: 5%;
+}
+
+h3 {
+    font-variant: small-caps;
+}
+
+.qrtool{
+  position: fixed;
+  z-index: 100;
+  left: 20px;
+  bottom: 20px;
+}
+
+.botonQr{
+  background-color: #01ABCD;
+}

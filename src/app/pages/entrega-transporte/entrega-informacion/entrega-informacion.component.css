@@ -1,0 +1,112 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+  }
+  
+  .tituloEnv {
+    padding: 5px;
+    width: 22rem;
+    background-color: #01abcd;
+    color: white;
+    font-size: 26px;
+    font-weight: 100;
+  }
+  .deliverysPend {
+    font-variant: small-caps;
+  }
+  .deliverysPend p:nth-last-child(1n) {
+    margin: 20px 10px;
+    color: #0048a1;
+  }
+  table {
+    width: 100%;
+  }
+  .mat-elevation-z8 {
+    margin: 10px 0px;
+  }
+  .inputAlm {
+    border: solid #01abcd 1px;
+  }
+  .card-container {
+    display: flex;
+    width: 100%;
+  }
+  mat-expansion-panel {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+  }
+  @media (max-width: 550px) {
+    mat-expansion-panel {
+      width: 90%;
+    }
+    .card-container {
+      display: block;
+    }
+  }
+  .inputCaja {
+    border: solid #01abcd 1px;
+    outline: none;
+    text-align: center;
+    color: #01abcd;
+  }
+  th.mat-header-cell,
+  td.mat-cell {
+    text-align: center;
+  }
+  .buttonLoginContainer {
+    display: flex;
+    justify-content: center;
+  }
+  .buttonLogin {
+    background-color: #01abcd;
+    color: white;
+    margin: 15px;
+    padding: 3px 35px;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .qrtool {
+    position: fixed;
+    z-index: 100;
+    left: 20px;
+    bottom: 20px;
+  }
+  .botonQr {
+    background-color: #01abcd;
+  }
+  .noSerieInput {
+    margin-right: 20px;
+  }
+  .inputContainer{
+    display: flex;
+    width: 100%;
+  }
+  .inputContainer div{
+    width: 50%;
+    padding: 15px;
+  }
+  .sinSerie {
+    height: 25rem;
+  }
+  #muestra{
+    display: none;
+    padding: 15px;
+  }
+  .datosAlb{
+    display: flex;
+  }
+  .datosAlb div {
+    width: 50%;
+  }
+  .datosEnvio{
+    border: solid black 1px;
+    padding: 15px;
+  }
+  @media (max-width: 350px) {
+    .tituloEnv {
+      width: 13rem;
+    }
+  }
+  

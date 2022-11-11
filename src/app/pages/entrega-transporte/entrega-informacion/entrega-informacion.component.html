@@ -1,0 +1,251 @@
+<div class="container">
+  <div class="tituloContainer">
+    <p class="tituloEnv">Albaran de devolución</p>
+  </div>
+
+  <!-- Botones de ordenes togleables -->
+  <div class="inputContainer">
+    <div>
+      <mat-form-field
+        [style.width.%]="100"
+        class="example-full-width inputMaterial"
+        appearance="fill"
+      >
+        <mat-label>Albaran:</mat-label>
+        <input matInput disabled value="{{ albaranId }}" />
+      </mat-form-field>
+      <mat-form-field
+        [style.width.%]="100"
+        class="example-full-width inputMaterial"
+        appearance="fill"
+      >
+        <mat-label>Delivery:</mat-label>
+        <input matInput disabled value="{{ delivery }}" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field
+        [style.width.%]="100"
+        class="example-full-width inputMaterial"
+        appearance="fill"
+      >
+        <mat-label>Numero de cajas:</mat-label>
+        <input matInput disabled value="{{ nCajas | json }}" />
+      </mat-form-field>
+      <mat-form-field
+        [style.width.%]="100"
+        class="example-full-width inputMaterial"
+        appearance="fill"
+      >
+        <mat-label>Fecha de creacion:</mat-label>
+        <input matInput disabled value="{{ fCreacion | date }}" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- ************************ -->
+  <div class="card-container">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Datos remitente </mat-panel-title>
+        <mat-panel-description>
+          Quien los envia
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let remitente of remitenteDatos">
+        <p>
+          <b>Empresa:</b> {{ remitente.empresa }}. {{ remitente.nombreZona }}
+        </p>
+        <p><b>Direccion:</b> {{ remitente.direccion }}</p>
+        <p>
+          <b>Poblacion:</b> {{ remitente.codigoUbigeo }}
+          {{ remitente.poblacion }}
+        </p>
+        <p><b>Provincia:</b> {{ remitente.provincia }}</p>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Datos transportista </mat-panel-title>
+        <mat-panel-description>
+          Quien lo recibe
+          <mat-icon>local_shipping</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let remitente of destinatarioDatos">
+        <p>
+          <b>Empresa:</b> {{ remitente.empresa }}. {{ remitente.nombreZona }}
+        </p>
+        <p><b>Direccion:</b> {{ remitente.direccion }}</p>
+        <p><b>Telefono:</b> {{ remitente.telefono }}</p>
+        <p>
+          <b>Poblacion:</b> {{ remitente.codigoUbigeo }}
+          {{ remitente.poblacion }}
+        </p>
+        <p><b>Provincia:</b> {{ remitente.provincia }}</p>
+      </div>
+    </mat-expansion-panel>
+  </div>
+  <!-- Tabla de componentes-->
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="CODIGO">
+        <th mat-header-cell *matHeaderCellDef>CODIGO</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.CODIGO }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="DESCRIPCION">
+        <th mat-header-cell *matHeaderCellDef>DESCRIPCION</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.descripcion }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CODIGO SAP">
+        <th mat-header-cell *matHeaderCellDef>CODIGO SAP</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.CODIGOSAP }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="NROSERIE">
+        <th mat-header-cell *matHeaderCellDef>N° SERIE</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.NroSERIE }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="AVERIADO">
+        <th mat-header-cell *matHeaderCellDef>AVERIADO</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.AVERIADO ? "Si" : "No" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ORIGEN">
+        <th mat-header-cell *matHeaderCellDef>ORIGEN</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.ORIGEN ? element.ORIGEN : "STOCK" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CANTIDAD">
+        <th mat-header-cell *matHeaderCellDef>CANTIDAD</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.CANTIDAD ? element.CANTIDAD : 1 }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Seleccione una pagina"
+    >
+    </mat-paginator>
+  </div>
+
+  <!-- Botones de aceptar y salir -->
+
+  <div class="buttonLoginContainer">
+    <button
+      class="buttonLogin"
+      (click)="imprim2()"
+      mat-raised-button
+      type="submit"
+    >
+      Imprimir
+    </button>
+    <button class="buttonLogin" routerLink="entrega" mat-raised-button>
+      Volver atras
+    </button>
+  </div>
+</div>
+<!-- ******************** -->
+<div id="muestra">
+  <h1>ALBARÁN DE DEVOLUCIÓN</h1>
+  <div class="datosAlb">
+    <div>
+      <p><b> N° Albaran: </b> {{ albaranId }}</p>
+      <p><b> N° de Delivery: </b> {{ delivery }}</p>
+    </div>
+    <div>
+      <p><b> Fecha: </b>{{ fCreacion | date: "medium" }}</p>
+      <p><b> N° Bultos: </b>{{ nCajas }}</p>
+    </div>
+  </div>
+  <div class="datosEnvio" *ngFor="let remitente of remitenteDatos">
+    <h2>REMITENTE.:</h2>
+    <p><b>Empresa:</b> {{ remitente.empresa }}. {{ remitente.nombreZona }}</p>
+    <p><b>Direccion:</b> {{ remitente.direccion }}</p>
+    <p>
+      <b>Poblacion:</b> {{ remitente.codigoUbigeo }} {{ remitente.poblacion }}
+    </p>
+    <p><b>Provincia:</b> {{ remitente.provincia }}</p>
+  </div>
+  <div class="datosEnvio" *ngFor="let remitente of destinatarioDatos">
+    <h2>DESTINO...:</h2>
+    <p><b>Empresa:</b> {{ remitente.empresa }}. {{ remitente.nombreZona }}</p>
+    <p><b>Direccion:</b> {{ remitente.direccion }}</p>
+    <p><b>Telefono:</b> {{ remitente.telefono }}</p>
+    <p>
+      <b>Poblacion:</b> {{ remitente.codigoUbigeo }} {{ remitente.poblacion }}
+    </p>
+    <p><b>Provincia:</b> {{ remitente.provincia }}</p>
+  </div>
+  <table id="muestra">
+    <tr>
+      <th>CODIGO</th>
+      <th>DESCRIPCION</th>
+      <th>CODIGOSAP</th>
+      <th>NUMERO SERIE</th>
+      <th>AVERIADO</th>
+      <th>CANTIDAD</th>
+    </tr>
+    <tr *ngFor="let item of algo">
+      <td>{{ item.CODIGO }}</td>
+      <td>{{ item.descripcion }}</td>
+      <td>{{ item.CODIGOSAP }}</td>
+      <td>{{ item.NroSERIE }}</td>
+      <td>{{ item.AVERIADO ? "Si" : "No" }}</td>
+      <td>{{ item.CANTIDAD ? item.CANTIDAD : 1 }}</td>
+    </tr>
+  </table>
+</div>

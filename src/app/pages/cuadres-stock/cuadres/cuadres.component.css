@@ -1,0 +1,192 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+  }
+  .mat-stepper-horizontal, .mat-stepper-vertical{
+    background-color: #fafafa;
+  }
+  .tituloEnv {
+    padding: 5px;
+    width: 22rem;
+    background-color: #01abcd;
+    color: white;
+    font-size: 26px;
+    font-weight: 100;
+  }
+  .deliverysPend {
+    font-variant: small-caps;
+  }
+  .deliverysPend p:nth-last-child(1n) {
+    margin: 20px 10px;
+    color: #0048a1;
+  }
+  table {
+    width: 100%;
+  }
+  .mat-elevation-z8 {
+    margin: 10px 0px;
+  }
+  .inputAlm {
+    border: solid #01abcd 1px;
+  }
+  .settingsIcon{
+    cursor: pointer;
+  }
+  .settingsIcon:hover{
+    transform: rotate(180deg);
+    transition: all 0.6s;
+  }
+  .inputCaja {
+    border: solid #01abcd 1px;
+    outline: none;
+    text-align: center;
+    color: #01abcd;
+  }
+  th.mat-header-cell,
+  td.mat-cell {
+    text-align: center;
+  }
+  .buttonLoginContainer {
+    display: flex;
+    justify-content: center;
+  }
+  .buttonLogin {
+    background-color: #01abcd;
+    color: white;
+    margin: 15px;
+    padding: 3px 35px;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .qrtool {
+    position: fixed;
+    z-index: 100;
+    left: 20px;
+    bottom: 20px;
+  }
+  .botonQr {
+    background-color: #01abcd;
+  }
+  .noSerieInput {
+    margin-right: 20px;
+  }
+  .sinSerie {
+    height: 25rem;
+  }
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .center div {
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .center p {
+    font-size: 24px;
+    color: #0048a1;
+  }
+  
+.sb-example-1 .search {
+  width: 30%;
+  position: relative;
+  display: flex;
+  margin-bottom: 7px;
+}
+
+.sb-example-1 .searchTerm {
+  width: 100%;
+  border: 3px solid #00b4cc;
+  border-right: none;
+  padding: 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+
+.sb-example-1 .searchTerm:focus {
+  color: #00b4cc;
+}
+
+.sb-example-1 .deleteButton {
+  width: 40px;
+  height: 50px;
+  border: 1px solid #ea1e63;
+  background: #ea1e63;
+  border-radius: 0 5px 5px 0;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.sb-example-1 .searchButton {
+  width: 40px;
+  height: 50px;
+  border: 1px solid #00b4cc;
+  background: #00b4cc;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px 0px 0px 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+  ::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: #01abcd; 
+  }
+.buttonslide2{
+  display: flex;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+.buttonIncluir{
+  margin: 0;
+  height: 50px;
+}
+.buttonslide2 mat-form-field{
+  margin-right: 15px;
+}
+.deleteRow{
+  padding: 2px;
+  cursor: pointer;
+  background-color: #ea1e63;
+  color: white;
+  border-radius: 50px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  margin-left: calc(50% - 10px);
+  font-size: 14px;
+}
+.deleteRow mat-icon{
+  font-size: 16px;
+  height: 15px;
+};
+.successFont{
+  color:#5cb85c;
+}
+.deleteFont{
+  color:#ea1e63;
+}
+.deleteClass{
+  background-color: #ea1e63;
+  color: white;
+  transition: all 0.1s ease-in;
+}
+  .center img {
+    width: 150px;
+    height: auto;
+    margin: 10px;
+  }
+  @media (max-width: 350px) {
+    .tituloEnv {
+      width: 13rem;
+    }
+  }
+  

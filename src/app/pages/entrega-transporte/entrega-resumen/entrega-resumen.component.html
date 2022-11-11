@@ -1,0 +1,108 @@
+<div *ngIf="!sinEntregas" class="container">
+  <div class="tituloContainer">
+    <p class="tituloEnv">Entrega al transportista</p>
+  </div>
+
+  <!-- ************************ -->
+
+  <!-- Tabla de componentes-->
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="DETALLE">
+        <th mat-header-cell *matHeaderCellDef>
+          DETALLE
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{successClass: element.seleccionado}"
+          [routerLink]="['mas-informacion/', element.albaran]"
+        >
+          <mat-icon class="settingsIcon">settings</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ALBARAN">
+        <th mat-header-cell *matHeaderCellDef>ALBARAN</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{element.albaran}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="DELIVERY">
+        <th mat-header-cell *matHeaderCellDef>DELIVERY</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{element.delivery}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="FECHA DE CREACION">
+        <th mat-header-cell *matHeaderCellDef>FECHA DE CREACION</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{element.date | date:'medium' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="TRANSPORTISTA">
+        <th mat-header-cell *matHeaderCellDef>TRANSPORTISTA</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{element.bverificartransporte ? 'EPSA' : 'No asignado'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="INFORMAR ENTREGA">
+        <th mat-header-cell *matHeaderCellDef>INFORMAR ENTREGA</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          <button class="buttonLogin" [disabled]="element.bverificartransporte == 0 || element.bTecEntregado == 1" mat-raised-button (click)="entregarDevol(element.delivery, username)" type="submit">Aceptar</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Seleccione una pagina"
+    >
+    </mat-paginator>
+  </div>
+</div>
+  <!-- **********Animacion********** -->
+
+<div
+  class="center vacio"
+  fxLayout="column"
+  fxLayoutAlign="space-between"
+  *ngIf="sinEntregas"
+>
+  <div>
+    <p>No posee entregas por realizar</p>
+    <img src="/assets/entrega.png" alt="Deliverys Completados" /> <br>
+    <button class="buttonLogin" mat-raised-button routerLink="/inicio">
+      Volver atras
+    </button>
+  </div>
+</div>

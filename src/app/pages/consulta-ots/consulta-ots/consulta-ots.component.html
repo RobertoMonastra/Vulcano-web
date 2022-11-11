@@ -1,0 +1,261 @@
+<div  class="container">
+    <div>
+        <h1 class="tituloEnv">Consulta de OT's</h1>
+        <mat-divider></mat-divider>
+        <br>
+    </div>
+
+    <div class="hijo">
+        
+            <mat-form-field class="selectores">
+                <input  type="text"
+                placeholder="Orden Trabajo"
+                aria-label="Number"
+                matInput
+                [(ngModel)] = "ot_id"
+                >           
+            </mat-form-field>
+        
+            <mat-form-field class="selectores">
+                <input  type="text"
+                placeholder="Ref Cliente"
+                aria-label="Number"
+                matInput
+                [(ngModel)]="refCliente"
+                >           
+            </mat-form-field>
+        
+            <mat-form-field class="selectores">
+                <input  type="text"
+                placeholder="N° Terminal"
+                aria-label="Number"
+                matInput
+                [(ngModel)]="nroTerminal"
+                >           
+            </mat-form-field>
+        
+            <mat-form-field class="selectores" >
+              <mat-label>Estado</mat-label>
+              <mat-select [(ngModel)]="selectedEstado">
+                <mat-option value="pendientes"> 
+                  Pendientes 
+                </mat-option>
+                <mat-option value="activas"> 
+                  Activas 
+                </mat-option>
+                <mat-option value="cerradas"> 
+                  Cerradas 
+                </mat-option>
+                <mat-option value="sinCerrar"> 
+                  Sin cerrar 
+                </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="selectores" >
+              <mat-label>Cliente</mat-label>
+              <mat-select [(ngModel)]="selectedCliente"> 
+                <mat-option value="VIS">
+                  VIS
+                </mat-option>
+                <mat-option value="EDE">
+                  EDE
+                </mat-option>
+                <mat-option value="TRA">
+                  TRA
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field class="selectores" >
+              <mat-label>Tipo Interv</mat-label>
+              <mat-select [(ngModel)]="tipoInterv"> 
+                <mat-option *ngFor="let propiedad of datos">
+                  {{propiedad.tipo_id}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+       
+    </div>
+
+    <div class="row">
+      <mat-form-field class="selectores" >
+        <mat-label>Asignacion</mat-label>
+        <mat-date-range-input [rangePicker]="asignacion">
+          <input matStartDate placeholder="Inicio fecha" [(ngModel)]="inicioFA">
+          <input matEndDate placeholder="Final fecha" [(ngModel)]="finalFA" >
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="asignacion"></mat-datepicker-toggle>
+        <mat-date-range-picker #asignacion></mat-date-range-picker>
+      </mat-form-field>
+
+          <mat-form-field class="selectores" >
+            <mat-label>Cierre</mat-label>
+            <mat-date-range-input [rangePicker]="cierre">
+              <input matStartDate placeholder="Inicio fecha" [(ngModel)]="inicioFC">
+              <input matEndDate placeholder="Final fecha" [(ngModel)]="finalFC" >
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="cierre"></mat-datepicker-toggle>
+            <mat-date-range-picker #cierre></mat-date-range-picker>
+          </mat-form-field>
+    </div>
+    <!-- [ : format [ : timezone [ : locale ] ] ] -->
+
+
+
+    <div class="row3">
+        <button mat-flat-button
+                class = "derecha"
+                (click)="limpiar()">
+            Limpiar
+        </button>
+        <button mat-flat-button
+                class = "derecha"
+                (click)="aplicar()"
+                >
+            Aplicar
+        </button>
+    </div>
+    <br>
+         
+    <table    mat-table 
+              [dataSource]="dataSource"
+              #tabla1
+              multiTemplateDataRows
+              matSort 
+              >
+              
+    
+    <ng-container matColumnDef="ot_id" >
+      <th mat-header-cell 
+          *matHeaderCellDef 
+          mat-sort-header 
+          sortActionDescription="Ordenar por N° de orden"> OT </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+        {{propiedad.ot_id}}
+      </td>
+    </ng-container>
+    
+    
+    <ng-container matColumnDef="sRefCliente" >
+      <th mat-header-cell *matHeaderCellDef> Ref. Cliente </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+       {{propiedad.sRefCliente}}
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="sDsPrioridad" >
+      <th mat-header-cell *matHeaderCellDef> Prioridad </th>
+      <td mat-cell *matCellDef="let propiedad"> 
+         {{propiedad.sDsPrioridad}}
+    </td>
+    </ng-container>
+
+    <ng-container matColumnDef="sDsEstadoCorta" >
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let propiedad"> 
+         {{propiedad.sDsEstadoCorta}}  
+      </td>
+      </ng-container>
+
+    <ng-container matColumnDef="concepto_id">
+      <th mat-header-cell *matHeaderCellDef> Concepto</th>
+      <td mat-cell *matCellDef="let propiedad"> 
+         {{propiedad.concepto_id}}
+    </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo_id">
+        <th mat-header-cell *matHeaderCellDef> Tipo</th>
+        <td mat-cell *matCellDef="let propiedad"> 
+           {{propiedad.tipo_id}}
+      </td>
+      </ng-container>
+
+    <ng-container matColumnDef="sNmComercio">
+      <th mat-header-cell *matHeaderCellDef> Nro. Terminal </th>
+      <td mat-cell *matCellDef= "let propiedad">
+       {{propiedad.sNmComercio}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="sDsCliFinal">
+        <th mat-header-cell *matHeaderCellDef> Descripcion Cliente </th>
+        <td mat-cell *matCellDef= "let propiedad">
+         {{propiedad.sDsCliFinal}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="sDsDireccion">
+        <th mat-header-cell *matHeaderCellDef> Direccion </th>
+        <td mat-cell *matCellDef= "let propiedad">
+         {{propiedad.sDsDireccion}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="sDsPoblacion">
+        <th mat-header-cell *matHeaderCellDef> Poblacion </th>
+        <td mat-cell *matCellDef= "let propiedad">
+         {{propiedad.sDsPoblacion}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="cdubigeo_id">
+        <th mat-header-cell *matHeaderCellDef> CP </th>
+        <td mat-cell *matCellDef= "let propiedad">
+            {{propiedad.cdubigeo_id}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="sDsTelefono1">
+        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+        <td mat-cell *matCellDef= "let propiedad">
+            {{propiedad.sDsTelefono1}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="zona_id">
+        <th mat-header-cell *matHeaderCellDef> Zona </th>
+        <td mat-cell *matCellDef= "let propiedad">
+            {{propiedad.zona_id}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="dFcAsignacion">
+        <th mat-header-cell 
+            *matHeaderCellDef
+            mat-sort-header 
+            sortActionDescription="Ordenar por Asignación"
+            > 
+            Asignación </th>
+        <td mat-cell *matCellDef= "let propiedad">
+            {{propiedad.dFcAsignacion | date}}
+    </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="dFcCierre">
+        <th mat-header-cell 
+            *matHeaderCellDef
+            mat-sort-header 
+            sortActionDescription="Ordenar por Cierre"
+            > 
+            Cierre </th>
+        <td mat-cell *matCellDef= "let propiedad">
+            {{(propiedad.dFcCierre | date) ? (propiedad.dFcCierre | date): 'Pendiente'}}
+    </td> 
+    </ng-container>
+
+      
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]"
+    showFirstLastButtons
+    class="tableStyle">
+    Seleccione
+    </mat-paginator>
+    
+</div>
+

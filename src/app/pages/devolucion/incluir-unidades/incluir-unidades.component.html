@@ -1,0 +1,222 @@
+<div class="container" *ngIf="sinComponentes">
+  <div class="tituloContainer">
+    <p class="tituloEnv">Seleccion de unidades a incluir</p>
+  </div>
+
+  <!-- Botones de ordenes togleables -->
+    <div class="searchbar">
+      <div class="col-rt-3 equal-height">
+        <div class="sb-example-1">
+          <div class="search">
+            <input
+              type="text"
+              class="searchTerm"
+              placeholder="Busqueda por numero de serie."
+              [(ngModel)]='searched'
+              (keyup.enter)="searchBar()"
+            />
+            <button (click)="searchBar()" type="submit" class="searchButton">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    <mat-form-field class="example-full-width inputMaterial" appearance="fill">
+      <mat-label>ALM.ORIGEN:</mat-label>
+      <input matInput disabled value="{{ username }}" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width inputMaterial" appearance="fill">
+      <mat-label>COMPONENTE:</mat-label>
+      <input matInput disabled value="{{ componenteNom }}" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width inputMaterial" appearance="fill">
+      <mat-label>CANTIDAD RESTANTE:</mat-label>
+      <input matInput disabled value="{{ cantRequerida | json }}" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width inputMaterial" appearance="fill">
+      <mat-label>ESTADO:</mat-label>
+      <input matInput disabled value="{{ estadoComponentes }}" />
+    </mat-form-field>
+    <div></div>
+  </div>
+
+  <!-- ************************ -->
+  <div *ngIf="componentesError != ''" class="errorBox">
+    <mat-icon>warning</mat-icon>
+    <b>ERROR AL CARGAR LOS COMPONENTES: </b>
+    <p></p>
+    {{ componentesError }}
+  </div>
+  <!-- Tabla de componentes-->
+
+  <div *ngIf="componenteSerializado" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>
+          Incluir
+          <mat-checkbox
+            class="example-margin checkGeneral"
+            [(ngModel)]="checkGeneral"
+            (change)="selectAll()"
+          >
+          </mat-checkbox>
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          <mat-checkbox
+            class="example-margin"
+            [disabled]="element.deshabilitado"
+            (change)="reqContador(element.incluir)"
+            [(ngModel)]="element.incluir"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="COMPONENTE">
+        <th mat-header-cell *matHeaderCellDef>Averiado</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.averiado ? "Sí" : "No" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="DESCRIPCION">
+        <th mat-header-cell *matHeaderCellDef>N° Serie</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          {{ element.numeroSerie }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="UNIDADES">
+        <th mat-header-cell *matHeaderCellDef>N° Caja</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="{ successClass: element.incluir }"
+        >
+          <input
+            class="inputCaja"
+            [(ngModel)]="element.numeroCaja"
+            required="true"
+            type="number"
+          />
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20, 2000]"
+      showFirstLastButtons
+      aria-label="Seleccione una pagina"
+    >
+    </mat-paginator>
+  </div>
+
+  <!-- Botones de aceptar y salir -->
+
+  <div *ngIf="componenteSerializado" class="buttonLoginContainer">
+    <button
+      class="buttonLogin"
+      mat-raised-button
+      type="submit"
+      [disabled]="cantRequerida !== 0"
+      (click)="aceptar()"
+    >
+      Aceptar
+    </button>
+    <button class="buttonLogin" mat-raised-button (click)="cancelar()">
+      Cancelar
+    </button>
+  </div>
+</div>
+<!-- ******************** -->
+
+<div *ngIf="!componenteSerializado">
+  <div class="sinSerie">
+    <mat-form-field
+      class="example-full-width inputMaterial noSerieInput"
+      appearance="fill"
+    >
+      <mat-label>CANTIDAD:</mat-label>
+      <input [(ngModel)]="cantidadNoSer" matInput required value="" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width inputMaterial" appearance="fill">
+      <mat-label>NRO.CAJA:</mat-label>
+      <input [(ngModel)]="nmrCajaNoSer" matInput required value="" />
+    </mat-form-field>
+  </div>
+  <div class="buttonLoginContainer">
+    <button
+      class="buttonLogin"
+      mat-raised-button
+      type="submit"
+      [disabled]="cantRequerida != cantidadNoSer"
+      (click)="aceptarNoSerie()"
+    >
+      Aceptar
+    </button>
+    <button class="buttonLogin" mat-raised-button (click)="cancelar()">
+      Cancelar
+    </button>
+  </div>
+</div>
+
+<div *ngIf="hide" class="qrtool">
+  <div class="example-button-container">
+    <button
+      (click)="botonQr()"
+      mat-fab
+      class="botonQr"
+      aria-label="Abrir scanner QR"
+    >
+      <mat-icon>qr_code</mat-icon>
+    </button>
+  </div>
+</div>
+<!-- *******************Componentes sin serie*************************** -->
+<div
+  class="center vacio"
+  fxLayout="column"
+  fxLayoutAlign="space-between"
+  *ngIf="!sinComponentes"
+>
+  <div>
+    <p>No posee componentes con este estado</p>
+    <img src="/assets/pos-terminal.png" alt="Deliverys Completados" /> <br>
+    <button class="buttonLogin" mat-raised-button routerLink="/inicio/devoluciones">
+      Volver atras
+    </button>
+  </div>
+</div>
+<!-- PRUEBAS DE ICONOS -->
+<div class="container">
+  <ul id="menu">
+        <a class="menu-button icon-plus"  matTooltip="Herramientas" matTooltipPosition="right" (click)="toolbar = !toolbar" title="Show navigation">
+          <svg style="width:40px;height:35px;margin-left: 17%;margin-top: 17%;" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M16.06 13.09L21.69 18.68L18.37 21.96L12.78 16.37V15.45L15.14 13.09H16.06M16.97 10.56L16 9.6L11.21 14.4V16.37L5.58 22L2.3 18.68L7.89 13.09H9.86L10.64 12.31L6.8 8.46H5.5L2.69 5.62L5.31 3L8.11 5.8V7.11L12 10.95L14.66 8.29L13.7 7.28L15 5.97H12.34L11.69 5.32L15 2L15.66 2.66V5.32L16.97 4L20.25 7.28C21.34 8.38 21.34 10.17 20.25 11.26L18.28 9.25L16.97 10.56Z" />
+          </svg>
+        </a>
+        <a class="menu-button icon-minus" href="#0" title="Hide navigation"></a>
+        <li [ngClass]="{newclass: toolbar}" matTooltip="Cargar componentes por planilla de calculo" matTooltipPosition="right"  class="menu-item excel" (click)="excelUpload()">
+          <a class="icon">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M21.17 3.25Q21.5 3.25 21.76 3.5 22 3.74 22 4.08V19.92Q22 20.26 21.76 20.5 21.5 20.75 21.17 20.75H7.83Q7.5 20.75 7.24 20.5 7 20.26 7 19.92V17H2.83Q2.5 17 2.24 16.76 2 16.5 2 16.17V7.83Q2 7.5 2.24 7.24 2.5 7 2.83 7H7V4.08Q7 3.74 7.24 3.5 7.5 3.25 7.83 3.25M7 13.06L8.18 15.28H9.97L8 12.06L9.93 8.89H8.22L7.13 10.9L7.09 10.96L7.06 11.03Q6.8 10.5 6.5 9.96 6.25 9.43 5.97 8.89H4.16L6.05 12.08L4 15.28H5.78M13.88 19.5V17H8.25V19.5M13.88 15.75V12.63H12V15.75M13.88 11.38V8.25H12V11.38M13.88 7V4.5H8.25V7M20.75 19.5V17H15.13V19.5M20.75 15.75V12.63H15.13V15.75M20.75 11.38V8.25H15.13V11.38M20.75 7V4.5H15.13V7Z" />
+            </svg>
+          </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,33 @@
+<div mat-dialog-title class="botones" align="end">
+
+</div>
+<mat-dialog-content id="qr" class="mat-typography">
+    <mat-card>
+      <mat-card-header>
+        <div class="headerCard">
+          <h2>
+            Cargar archivo excel (.xlsx)
+          </h2>
+        </div>
+      </mat-card-header>
+      <mat-card-subtitle>
+        El archivo excel seleccionado debera presentar el siguiente formato: <br> (Al cargar el archivo excel perdera los componentes introducidos a mano)
+      </mat-card-subtitle>
+      <div class="containerExcel">
+        <div class="placeholder">
+          <img src="assets/placeholder.PNG" alt="ejemplo excel">
+        </div>
+          <input #fileInput type="file" (change)="onFileChange($event)" multiple="false"  style="display:none;" ngModel/>
+          <mat-form-field [style.width.%]=85 id="inputExcel" class="example-full-width" (click)="fileInput.click()">
+            <input matInput placeholder="Click para elegir"
+                   value="{{fileInput.value.substr(fileInput.value.lastIndexOf('\\')+1)}}">
+            <mat-icon matSuffix>folder_open</mat-icon>
+          </mat-form-field>
+          &nbsp;
+      </div>
+    </mat-card>
+</mat-dialog-content>
+<div class="botonesCard">
+  <button (click)="si()" [disabled]="disabled" mat-dialog-close mat-raised-button class="boton">Aceptar</button>
+  <button (click)="no()" mat-dialog-close mat-raised-button class="boton">Cancelar</button>
+</div>

@@ -1,0 +1,16 @@
+<div mat-dialog-title class="botones" align="end">
+    <div class="example-button-container">
+        <button (click)="no()" mat-button mat-dialog-close mat-mini-fab color="warn" aria-label="">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+</div>
+<mat-dialog-content id="qr" class="mat-typography">
+    <zxing-scanner [formats]="allowedFormats" (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+  <div class="text">
+    <p>
+      Escanee el codigo de barras
+    </p>
+  </div>
+  </mat-dialog-content>
+

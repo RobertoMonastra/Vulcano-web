@@ -1,0 +1,483 @@
+<div class="container">
+
+  <div class="tituloContainer">
+    <p class="tituloEnv">Cuadre de Stock Mensual</p>
+  </div>
+
+  <mat-stepper (selectionChange)="renderRows($event)" labelPosition="bottom" #stepper>
+    <mat-step label="Step 1">
+      <ng-template matStepLabel>Modulos/partes/consumibles</ng-template>
+      <!-- Tabla de componentes-->
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="COMPONENTE">
+            <th mat-header-cell *matHeaderCellDef>COMPONENTE</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ successClass: element.seleccionado }"
+              [routerLink]="['mas-informacion/', element.albaran]"
+            >
+              {{ element.componente_id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="EXISTENCIASVUL">
+            <th mat-header-cell *matHeaderCellDef>EXISTENCIAS SEGUN VULCANO</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ successClass: element.incluir }"
+            >
+              {{ element.nexactuales }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="EXISTENCIASALM">
+            <th mat-header-cell *matHeaderCellDef>
+              EXISTENCIAS FISICAS EN ALMACEN
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ successClass: element.incluir }"
+            >
+              <input
+                class="inputCaja"
+                required="true"
+                type="number"
+                type="text"
+                pattern="^[0-9]{0,12}?$" 
+                [(ngModel)]="element.nexactualesUsuario"
+              />
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Seleccione una pagina"
+        >
+        </mat-paginator>
+      </div>
+      <div class="buttonLoginContainer">
+        <button class="buttonLogin" mat-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Componentes serializados</ng-template>
+      <div class="searchbar">
+        <div class="col-rt-3 equal-height">
+          <div class="sb-example-1">
+            <div class="search">
+              <button type="submit" class="searchButton">
+                <mat-icon>search</mat-icon>
+              </button>
+              <input
+                type="text"
+                class="searchTerm"
+                placeholder="Busqueda por numero de serie."
+                [(ngModel)]="termino"
+                (keyup)="search()"
+              />
+              <button (click)="termino=''" (click)="search()" type="submit" class="deleteButton">
+                <mat-icon>close</mat-icon>
+              </button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource2">
+          <ng-container matColumnDef="ENSTOCK">
+            <th mat-header-cell *matHeaderCellDef>
+              Lo tengo
+              <mat-checkbox [(ngModel)]="checkGeneral"
+                (change)="selectAll()" class="example-margin checkGeneral">
+                
+              </mat-checkbox>
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ successClass: element.incluir }"
+            >
+              <mat-checkbox
+                class="example-margin"
+                (change)="(element.incluir)"
+                [(ngModel)]="element.incluir"
+              >
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="COMPONENTE">
+            <th mat-header-cell *matHeaderCellDef>COMPONENTE</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ successClass: element.incluir }"
+            >
+              {{ element.componente_id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="NUMSERIE">
+            <th mat-header-cell *matHeaderCellDef>N° Serie</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ successClass: element.incluir }"
+            >
+              {{ element.snmserie }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="DIASALMACEN">
+            <th mat-header-cell *matHeaderCellDef>DIAS EN EL ALMACEN</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ successClass: element.incluir }"
+            >
+              {{ element.nDiasEnAlmacen }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20, 2000]"
+          showFirstLastButtons
+          aria-label="Seleccione una pagina"
+          #allPaginator="matPaginator"
+        >
+        </mat-paginator>
+      </div>
+      <div class="buttonLoginContainer">
+        <button class="buttonLogin" mat-button matStepperPrevious>
+          Anterior
+        </button>
+        <button class="buttonLogin" mat-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel
+        >Materiales no reflejados en Vulcano</ng-template
+      >
+      <div class="buttonslide2">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Material</mat-label>
+          <input  type="text"
+                  onClick="this.setSelectionRange(0, this.value.length)"    
+                  placeholder="Escriba uno"
+                  aria-label="Number"
+                  matInput
+                  [formControl]="myControl"
+                  [matAutocomplete]="auto"
+                  [(ngModel)]="compoElegido">
+          <mat-autocomplete (optionSelected)="selectCompo()" #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>N° Serie</mat-label>
+          <input
+            matInput
+            id="name"
+            [(ngModel)]="numSerIncluir"
+            mask="000-00 00 00"
+            [disabled]="Composeriado == 0"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Cantidad</mat-label>
+          <input
+            [(ngModel)]="cantIncluir"
+            [disabled]="Composeriado == 1"
+            matInput
+            value="{{ 1 }}"
+          />
+        </mat-form-field>
+ 
+        <button
+          class="buttonLogin buttonIncluir"
+          mat-raised-button
+          type="submit"
+          [disabled]="
+            (Composeriado == 1 && numSerIncluir == '') || deshabilitar
+          "
+          (click)="incluirComponente()"
+        >
+          Incluir
+        </button>
+      </div>
+      <mat-error *ngIf="textoError">
+        Error <strong>{{textoError}}</strong>
+      </mat-error>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource3">
+          <ng-container matColumnDef="QUITAR">
+            <th mat-header-cell *matHeaderCellDef>QUITAR</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              (click)="eliminarComponente(element)"
+              [ngClass]="{ deleteClass: !element.incluir }"
+              [routerLink]="['mas-informacion/', element.albaran]"
+            >
+              <div class="deleteRow"><mat-icon>close</mat-icon></div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="COMPONENTE">
+            <th mat-header-cell *matHeaderCellDef>COMPONENTE</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ deleteClass: !element.incluir }"
+              [routerLink]="['mas-informacion/', element.albaran]"
+            >
+              {{ element.componente_id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="NUMSERIE">
+            <th mat-header-cell *matHeaderCellDef>N° de Serie</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ deleteClass: !element.incluir }"
+            >
+              {{ element.snmserie }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="CANTIDAD">
+            <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="{ deleteClass: !element.incluir }"
+            >
+              {{ element.cantidad }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          #allPaginator3="matPaginator"
+          aria-label="Seleccione una pagina"
+        >
+        </mat-paginator>
+      </div>
+      <div class="buttonLoginContainer">
+        <button class="buttonLogin" mat-button matStepperPrevious>
+          Anterior
+        </button>
+        <button class="buttonLogin" mat-button (click)="renderRows($event)" matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template  matStepLabel>Cuadre preeliminar</ng-template>
+
+      <div *ngIf="!mostrar" class="deliverysPend">
+        <p>Modulos/Partes/Consumibles que se han modificado</p>
+      </div>
+      <div *ngIf="!mostrar" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource4">
+          <ng-container matColumnDef="COMPONENTE">
+            <th mat-header-cell *matHeaderCellDef>COMPONENTE</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [routerLink]="['mas-informacion/', element.albaran]"
+            >
+              {{ element.componente_id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ENSTOCK">
+            <th mat-header-cell *matHeaderCellDef>EXISTENCIAS SEGUN VULCANO</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.nexactuales }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="NUMSERIE">
+            <th mat-header-cell *matHeaderCellDef>
+              EXISTENCIAS FISICAS EN ALMACEN
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{element.nexactualesUsuario}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="DIASALMACEN">
+            <th mat-header-cell *matHeaderCellDef>
+              DIFERENCIA
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="element.nexactualesUsuario - element.nexactuales > 0 ? 'successFont' : 'deleteFont'"
+            >
+              {{element.nexactualesUsuario - element.nexactuales}}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          #allPaginator4="matPaginator"
+          aria-label="Seleccione una pagina"
+        >
+        </mat-paginator>
+      </div>
+      <!-- Segunda tabla -->
+      <div *ngIf="!mostrar" class="deliverysPend">
+        <p>Componentes que se deben Eliminar (no los tengo)</p>
+      </div>
+      <div *ngIf="!mostrar" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource5">
+
+          <ng-container matColumnDef="COMPONENTE">
+            <th mat-header-cell *matHeaderCellDef>COMPONENTE</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.componente_id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="EXISTENCIASVUL">
+            <th mat-header-cell *matHeaderCellDef>N° Serie</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.snmserie }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="EXISTENCIASALM">
+            <th mat-header-cell *matHeaderCellDef>DIAS EN EL ALMACEN</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.nDiasEnAlmacen }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20, 2000]"
+          showFirstLastButtons
+          aria-label="Seleccione una pagina"
+          #allPaginator5="matPaginator"
+        >
+        </mat-paginator>
+      </div>
+
+      <!-- Tercera Tabla -->
+      <div *ngIf="!mostrar" class="deliverysPend">
+        <p>Componentes que se deben agregar (los tengo)</p>
+      </div>
+      <div *ngIf="!mostrar" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource3">
+
+          <ng-container matColumnDef="COMPONENTE">
+            <th mat-header-cell *matHeaderCellDef>COMPONENTE</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [routerLink]="['mas-informacion/', element.albaran]"
+            >
+              {{ element.componente_id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="EXISTENCIASVUL">
+            <th mat-header-cell *matHeaderCellDef>N° de Serie</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.snmserie }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="EXISTENCIASALM">
+            <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.cantidad }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          #allPaginator3="matPaginator"
+          aria-label="Seleccione una pagina"
+        >
+        </mat-paginator>
+      </div>
+
+      <!-- Fin Tablas -->
+      <div
+        class="center vacio"
+        fxLayout="column"
+        fxLayoutAlign="space-between"
+        *ngIf="mostrar"
+      >
+        <div>
+          <p>Todo su stock es correcto</p>
+          <img src="/assets/completed-task.png" alt="Deliverys Completados" /> <br />
+        </div>
+      </div>
+      <div class="buttonLoginContainer">
+        <button class="buttonLogin" mat-button matStepperPrevious>
+          Anterior
+        </button>
+        <button class="buttonLogin" (click)="processEnd()" mat-button>Finalizar control</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>

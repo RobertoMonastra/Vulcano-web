@@ -1,0 +1,58 @@
+
+
+.logo{
+  height: 100%;
+  margin-left: -20px;
+  cursor: pointer;
+}
+
+.button{
+  flex: 1 1 auto;
+  text-align: center;
+  
+}
+.container{
+  width: 100%;
+ }
+.userName{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: white;
+}
+
+.toolBar{
+  background-color: #77D2E5;
+}
+
+.menu{
+  color: white;
+}
+
+mat-nav-list{
+  background-color: #5271FF;
+  height: 93.05%;
+}
+
+.opMenu{
+  color: white;
+}
+
+.subMenu{
+  color: white;
+  background-color: #5271FF;
+}
+
+.subMenu:hover{
+  background-color: #77d2E5;
+  color: black;
+  font-weight: bold;
+}
+
+mat-icon  {
+  color: white;
+}
+
+  
+
+  

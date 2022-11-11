@@ -1,0 +1,22 @@
+h1{
+    text-align: center;
+    padding: 20px;
+}
+
+.card {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+mat-button-toggle {
+    margin-right: 5px;
+}
+
+img{
+    width: 20%;
+}
+
+.center{
+    
+    text-align: center;
+}

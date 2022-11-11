@@ -1,0 +1,80 @@
+<div class="container, inputMaterial" fxLayout="column" fxLayoutAlign="space-between"> 
+    <div>
+      <p class="tituloEnv">Consulta de Stock</p>
+    </div>
+    <div class= "hijo">
+        <button mat-flat-button
+                routerLink="detalleStock">Ir a detalle de stock</button><!--  -->
+        <h3>Stock General</h3>
+      <table  mat-table [dataSource]="dataSource"
+      multiTemplateDataRows>
+      
+      <ng-container matColumnDef="componente_id" >
+        <th mat-header-cell *matHeaderCellDef> COMPONENTE </th>
+        <td mat-cell *matCellDef="let propiedad"> {{propiedad.componente_id}} </td>
+      </ng-container>
+      
+      
+      <ng-container matColumnDef="descripcion" >
+        <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+        <td mat-cell *matCellDef="let propiedad"> {{propiedad.descripcion}} </td>
+        
+      </ng-container>
+      
+      
+      <ng-container matColumnDef="nExActuales" >
+        <th mat-header-cell *matHeaderCellDef> DISPONIBLES </th>
+        <td mat-cell *matCellDef="let propiedad"> {{propiedad.nExActuales}} </td>
+      </ng-container>
+  
+      
+      <ng-container matColumnDef="nDevolver">
+        <th mat-header-cell *matHeaderCellDef> AVERIADOS </th>
+        <td mat-cell *matCellDef="let propiedad"> {{propiedad.nDevolver}} </td>
+      </ng-container>
+      
+      
+      
+      <ng-container matColumnDef="sumaTotal">
+        <th mat-header-cell *matHeaderCellDef> UNIDADES STOCK </th>
+        <td mat-cell *matCellDef= "let propiedad"> {{propiedad.nExActuales + propiedad.nDevolver}} </td>
+      </ng-container>
+  
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+      
+    </table>
+    
+    <mat-paginator [pageSizeOptions]="[15, 30, 50]"
+    showFirstLastButtons
+    class="tableStyle">
+    Seleccione
+  </mat-paginator>
+  
+  
+  
+  </div>
+  
+  
+  </div>
+
+  <div class="container">
+    <ul id="menu">
+          <a class="menu-button icon-plus"  matTooltip="Herramientas" matTooltipPosition="right" (click)="toolbar = !toolbar" title="Show navigation">
+            <svg style="width:40px;height:35px;margin-left: 17%;margin-top: 17%;" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M16.06 13.09L21.69 18.68L18.37 21.96L12.78 16.37V15.45L15.14 13.09H16.06M16.97 10.56L16 9.6L11.21 14.4V16.37L5.58 22L2.3 18.68L7.89 13.09H9.86L10.64 12.31L6.8 8.46H5.5L2.69 5.62L5.31 3L8.11 5.8V7.11L12 10.95L14.66 8.29L13.7 7.28L15 5.97H12.34L11.69 5.32L15 2L15.66 2.66V5.32L16.97 4L20.25 7.28C21.34 8.38 21.34 10.17 20.25 11.26L18.28 9.25L16.97 10.56Z" />
+            </svg>
+          </a>
+          <a class="menu-button icon-minus" href="#0" title="Hide navigation"></a>
+          <li [ngClass]="{newclass: toolbar}" matTooltip="Cargar componentes por planilla de calculo" matTooltipPosition="right"  class="menu-item excel" (click)="excelDownload()">
+            <a class="icon">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M21.17 3.25Q21.5 3.25 21.76 3.5 22 3.74 22 4.08V19.92Q22 20.26 21.76 20.5 21.5 20.75 21.17 20.75H7.83Q7.5 20.75 7.24 20.5 7 20.26 7 19.92V17H2.83Q2.5 17 2.24 16.76 2 16.5 2 16.17V7.83Q2 7.5 2.24 7.24 2.5 7 2.83 7H7V4.08Q7 3.74 7.24 3.5 7.5 3.25 7.83 3.25M7 13.06L8.18 15.28H9.97L8 12.06L9.93 8.89H8.22L7.13 10.9L7.09 10.96L7.06 11.03Q6.8 10.5 6.5 9.96 6.25 9.43 5.97 8.89H4.16L6.05 12.08L4 15.28H5.78M13.88 19.5V17H8.25V19.5M13.88 15.75V12.63H12V15.75M13.88 11.38V8.25H12V11.38M13.88 7V4.5H8.25V7M20.75 19.5V17H15.13V19.5M20.75 15.75V12.63H15.13V15.75M20.75 11.38V8.25H15.13V11.38M20.75 7V4.5H15.13V7Z" />
+              </svg>
+            </a>
+          </li>
+      </ul>
+  </div>
+

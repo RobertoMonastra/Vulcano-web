@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #01abcd;
+  color: white;
+  /*border: solid #01ABCD 1px;*/
+}
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: white;
+}
+.mat-form-field-label {
+  color: white;
+}
+.mat-form-field-appearance-fill .mat-form-field-underline::before {
+  background-color: rgb(1 171 205);
+}
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #01abcd;
+  transition: none;
+}
+.mat-header-row.cdk-header-row.ng-star-inserted {
+  background-color: #01abcd;
+}
+.mat-paginator-outer-container {
+  background-color: #01abcd;
+  color: white;
+}
+.mat-header-cell.cdk-header-cell {
+  color: white;
+}
+.successClass {
+  background-color: #5cb85c;
+  transition: all 0.2s ease-in;
+  color: white;
+}
+.mat-button-toggle-checked {
+  background-color: #01abcd;
+}
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: white;
+}
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background{
+  background: #01abcd;
+}
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element{
+    background: #01abcd;
+}
+.checkGeneral{
+  display: inline-block;
+  margin: 5px;
+}
+.checkGeneral .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element{
+  background: #5cb85c;
+
+}
+.activeLabel {
+  background-color: #01abcd;
+  color: white;
+}
+.success-snackbar{
+  background: white;
+  color: black;
+}
+.success-snackbar .mat-button-wrapper{
+  color: #5cb85c;
+}
+.bad-snackbar{
+  background: white;
+  color: #dc3545;
+}
+@media (max-width: 450px) {
+  .inputMaterial{
+    width: 100%;
+  }
+  .mat-paginator-container{
+    justify-content: center!important;
+  }
+  .mat-elevation-z8{
+    overflow: auto;
+  }
+  .inputCaja{
+    width: 6rem;
+  }
+}

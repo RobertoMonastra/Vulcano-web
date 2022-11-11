@@ -1,0 +1,92 @@
+<mat-sidenav-container fullscreen>
+
+
+    <mat-sidenav #sidenav class="side" mode="push">
+    
+        <mat-toolbar class="toolbar">
+                <img class="logo" routerLink="/inicio" src="/assets/VulcanoWeb1.png">
+                <button mat-icon-button
+                        (click)="sidenav.toggle()">
+                    <mat-icon mat-list-icon>menu</mat-icon>
+                </button>
+        </mat-toolbar>
+    
+        <mat-nav-list>
+                <mat-list-item class="opMenu" [matMenuTriggerFor] = "subMenu1">
+                    Consultas
+                    <mat-icon mat-list-icon (click)="showFiller = !showFiller">
+                        expand_more
+                    </mat-icon>
+                 
+                <mat-menu #subMenu1 = "matMenu">
+                    <button class="subMenu" routerLink="consulta-ots" (click)="sidenav.toggle()" mat-menu-item>Consulta de OT's</button>
+                    <button class="subMenu" mat-menu-item>Seguimiento de OT producción</button>
+                    <button class="subMenu" mat-menu-item>Consultas generales</button>
+                </mat-menu>
+            </mat-list-item>
+        
+            <mat-list-item class="opMenu" [matMenuTriggerFor] = "subMenu2">
+                Control de Stock
+                <mat-icon mat-list-icon (click)="showFiller = !showFiller">
+                    expand_more
+                </mat-icon>
+                <mat-menu  #subMenu2 = "matMenu">
+                    <button class="subMenu" routerLink="cambio-estados" (click)="sidenav.toggle()" mat-menu-item>Modificar Estado Componente</button>
+                    <button class="subMenu" routerLink="consulta-stock" (click)="sidenav.toggle()" mat-menu-item>Consultas equipos de stock</button>
+                    <button class="subMenu" mat-menu-item>Cuadre mensual de stock</button>
+                </mat-menu>
+            </mat-list-item>
+
+            <mat-list-item class="opMenu" [matMenuTriggerFor] = "subMenu3">
+                Gestion de equipos
+                <mat-icon mat-list-icon (click)="showFiller = !showFiller">
+                    expand_more
+                </mat-icon>
+                <mat-menu #subMenu3 = "matMenu">
+                    <button class="subMenu" routerLink="devoluciones" (click)="sidenav.toggle()" mat-menu-item>Remitos de devolución</button>
+                    <button class="subMenu" routerLink="entrega" (click)="sidenav.toggle()" mat-menu-item>Envío transportista</button>
+                    <button class="subMenu" class="subMenu" routerLink="recepcion" (click)="sidenav.toggle()" mat-menu-item>Recepción de envíos</button>
+                    
+                    <button class="subMenu"  mat-menu-item>Remitos de devolución TRA/EDE</button>
+                    <button class="subMenu" mat-menu-item>Recepción de envíos TRA/EDE</button>
+                    <button class="subMenu" mat-menu-item>Consultas remitos</button>
+                </mat-menu>
+            </mat-list-item>   
+        </mat-nav-list>
+        
+    </mat-sidenav>
+
+    
+
+    
+    <mat-toolbar class="toolBar">
+        
+        <img class="logo" routerLink="/inicio" src="/assets/VulcanoLogo.png">
+        <button mat-icon-button
+                (click)="sidenav.toggle()">
+                
+            <mat-icon class="menu" mat-list-icon>menu</mat-icon>
+        </button>
+        
+        <div class="container">
+            <div class="hijo">
+                <span class="userName"> {{nombre}} ({{username}})</span>
+                
+            </div>
+        </div>
+        <span class="button"></span>
+        
+    <button mat-icon-button
+            (click)="home()">
+      <mat-icon mat-list-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button
+            (click)="logout()">
+        <mat-icon mat-list-icon>logout</mat-icon>
+      </button>
+    
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+
+</mat-sidenav-container>

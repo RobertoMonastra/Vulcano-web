@@ -1,0 +1,44 @@
+
+
+            <form class="form" 
+            autocomplete="off"
+            [formGroup]="loginForm"
+            (ngSubmit)="login()">
+            <mat-error id="backErr">{{errorBackend}}</mat-error>
+            <mat-form-field  class="input" appearance="fill">
+              <mat-label >Ingrese el nombre de usuario</mat-label>
+              <input matInput placeholder=""
+              type="text"  
+              formControlName="id"
+              required>
+              <mat-error *ngIf="campoNoValido('username')">El nombre de usuario no es valido</mat-error>
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+
+
+  
+            <mat-form-field  class="input" appearance="fill">
+              <mat-label >Ingrese la contraseña</mat-label>
+              <input matInput placeholder=""
+              [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+              required>
+              <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </a>
+              <mat-error *ngIf="invalidPassword('password')">{{invalidPassword('password')}}</mat-error>
+            </mat-form-field>
+            <a href="#" class="loginLink" routerLink="/iniciar-sesion/olvido">¿Olvido su clave? haga click aquí</a>
+                  
+            <div class="buttonLoginContainer">
+                <button class="buttonLogin"
+                 mat-raised-button
+                [disabled]="loginForm.invalid"
+                type="submit"
+                >
+                  Acceder
+                </button>
+            </div>
+            </form>
+          

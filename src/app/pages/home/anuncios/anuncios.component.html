@@ -1,0 +1,58 @@
+
+<h1>{{ 'Inicio' | uppercase }}</h1>
+<hr>
+<div class="container">
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>Anuncios</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+        <br>
+        <br>
+    </mat-card-header>
+
+    <mat-card-content >
+        <div
+  
+  fxLayout="column"
+  fxLayoutAlign="space-between">
+
+        <div *ngIf="mostrarDel">
+        <h4>Devoluciones Pendientes</h4>
+        <hr>
+        
+            <mat-button-toggle
+            *ngFor="let pendiente of pendientesDel"
+            routerLink="/inicio/devoluciones">
+            {{pendiente.DeliveryDocument}}
+        </mat-button-toggle> 
+        
+        </div>
+        
+        <br>
+        
+        <div *ngIf="mostrarRec">
+        <h4>Recepciones Pendientes</h4>
+        <hr>
+
+        
+            <mat-button-toggle
+            *ngFor="let pendiente of pendientesRec"
+            routerLink="/inicio/recepcion">
+            {{pendiente.DeliveryDocument}}
+        </mat-button-toggle> 
+        
+        </div>
+
+        <div class="center" fxLayout="column" fxLayoutAlign="space-between" *ngIf="mostrar">
+            <div>
+              <h4 style="text-align: center;">No hay anuncios para mostrar</h4>
+              <img src="/assets/correo-electronico.png" alt="Deliverys Completados" />
+              
+            </div>
+          </div>
+
+    </div>
+    </mat-card-content>
+
+</mat-card>
+</div>

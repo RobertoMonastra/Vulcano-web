@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+}
+
+.tituloEnv {
+  padding: 5px;
+  width: 13rem;
+  background-color: #01abcd;
+  color: white;
+  font-size: 26px;
+  font-weight: 100;
+}
+
+table {
+  width: 100%;
+  
+}
+
+th.mat-header-cell,
+td.mat-cell {
+  text-align: center;
+
+}
+
+button, .buttonLogin {
+  color: white;
+  background-color: #01abcd;
+  border-radius: 5%;
+  font-size: 15px;
+}
+button:hover {
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.center div {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.center p {
+  font-size: 24px;
+  color: #0048a1;
+}
+
+.center img {
+  width: 150px;
+  height: auto;
+  margin: 10px;
+}
+
+.vinculo {
+  color: white;
+}
+
+.settingsIcon{
+  cursor: pointer;
+}
+.settingsIcon:hover{
+  transform: rotate(180deg);
+  transition: all 0.6s;
+}
+
+.disabled {
+  cursor:pointer;
+  color: grey;
+}

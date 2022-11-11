@@ -1,0 +1,18 @@
+.botones{
+    margin-top: -2.5rem;
+    margin-left: -2.5rem;
+    position: absolute;
+    z-index: 100;
+}
+.text{
+    display: flex;
+    justify-content: center;
+}
+.text p {
+    background-color: rgb(0 0 0 / 28%);
+    padding: 10px;
+    position: absolute;
+    border-radius: 5px;
+    color: white;
+    margin-top:-50px;
+}
